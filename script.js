@@ -6,7 +6,7 @@ const submitBtn = document.getElementById('submitBtn');
 
 // !! IMPORTANT !!
 // PASTE YOUR DISCORD WEBHOOK URL HERE
-const DISCORD_WEBHOOK_URL = 'YOUR_WEBHOOK_URL_HERE';
+const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1406714029048856656/rcCH-OCTQ8YA5sljAtwWo4cIfvfs8nky_gxK8Jow65VvQueCBZXtB2xoDRHX0NLvuFbK';
 
 // Cooldown period: 2 days in milliseconds
 const COOLDOWN_PERIOD_MS = 2 * 24 * 60 * 60 * 1000; // 48 hours
