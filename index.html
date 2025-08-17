@@ -9,6 +9,9 @@
 <body>
     <div class="ticket-container">
         <h1>Support Ticket System</h1>
+        
+        <div id="cooldownMessage" class="message-box" style="display: none;"></div>
+
         <form id="ticketForm">
             <label for="fullName">Full Name</label>
             <input type="text" id="fullName" name="fullName" required>
@@ -35,6 +38,13 @@
 
                 <input type="radio" id="fampay" name="paymentMethod" value="FamPay">
                 <label for="fampay">FamPay</label>
+            </div>
+            
+            <input type="text" id="honeypot" name="honeypot" class="honeypot-field">
+
+            <div class="antispam-check">
+                <input type="checkbox" id="isHuman" name="isHuman" required>
+                <label for="isHuman">I am not a robot</label>
             </div>
 
             <button type="submit" id="submitBtn">Submit Ticket</button>
