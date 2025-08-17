@@ -2,13 +2,33 @@
 const form = document.getElementById('ticketForm');
 const statusMessage = document.getElementById('statusMessage');
 
+// Record the time the page loaded
+const loadTime = new Date().getTime();
+
 // !! IMPORTANT !!
 // PASTE YOUR DISCORD WEBHOOK URL HERE
-const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1406714029048856656/rcCH-OCTQ8YA5sljAtwWo4cIfvfs8nky_gxK8Jow65VvQueCBZXtB2xoDRHX0NLvuFbK';
+const DISCORD_WEBHOOK_URL = 'YOUR_WEBHOOK_URL_HERE';
 
 form.addEventListener('submit', function(event) {
     // Prevent the default form submission behavior
     event.preventDefault();
+
+    // --- ANTI-BOT CHECK #1: HONEYPOT ---
+    const honeypot = document.getElementById('website').value;
+    if (honeypot) {
+        console.warn('Bot detected (honeypot filled).');
+        return; // Silently stop execution
+    }
+
+    // --- ANTI-BOT CHECK #2: TIMESTAMP ---
+    const submitTime = new Date().getTime();
+    // If form submitted in less than 3 seconds, it's likely a bot
+    if ((submitTime - loadTime) / 1000 < 3) {
+        console.warn('Bot detected (submission too fast).');
+        statusMessage.textContent = '❌ Error: Please fill out the form more slowly.';
+        statusMessage.style.color = 'red';
+        return;
+    }
 
     const submitBtn = document.getElementById('submitBtn');
     submitBtn.disabled = true;
