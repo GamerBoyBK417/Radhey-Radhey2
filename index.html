@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit a Ticket</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="ticket-container">
+        <h1>Support Ticket System</h1>
+        <form id="ticketForm">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="mobile">Mobile Number</label>
+            <input type="tel" id="mobile" name="mobile" required>
+
+            <label for="product">Product</label>
+            <input type="text" id="product" name="product" placeholder="e.g., 'Premium Subscription'" required>
+
+            <label>Payment Method</label>
+            <div class="payment-options">
+                <input type="radio" id="gpay" name="paymentMethod" value="GPay" required>
+                <label for="gpay">GPay</label>
+
+                <input type="radio" id="paytm" name="paymentMethod" value="Paytm">
+                <label for="paytm">Paytm</label>
+
+                <input type="radio" id="phonepe" name="paymentMethod" value="PhonePe">
+                <label for="phonepe">PhonePe</label>
+
+                <input type="radio" id="fampay" name="paymentMethod" value="FamPay">
+                <label for="fampay">FamPay</label>
+            </div>
+
+            <button type="submit" id="submitBtn">Submit Ticket</button>
+        </form>
+        <p id="statusMessage"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
