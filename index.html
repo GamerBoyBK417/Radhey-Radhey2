@@ -3,41 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoRamTix a Order</title>
+    <title>CoRamTix - Support Ticket System</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="ticket-container">
-        <h1>Order Ticket System</h1>
+        <h1>CoRamTix</h1>
+        <p class="subtitle">Submit a Support Ticket</p>
         
         <div id="cooldownMessage" class="message-box" style="display: none;"></div>
 
         <form id="ticketForm">
-            <label for="fullName">Full Name</label>
-            <input type="text" id="fullName" name="fullName" required>
+            <div class="input-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
 
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="mobile">Mobile Number</label>
+                <input type="tel" id="mobile" name="mobile" required>
+            </div>
 
-            <label for="mobile">Mobile Number</label>
-            <input type="tel" id="mobile" name="mobile" required>
+            <div class="input-group">
+                <label for="product">Product</label>
+                <input type="text" id="product" name="product" placeholder="e.g., 'Premium Subscription'" required>
+            </div>
 
-            <label for="product">Product</label>
-            <input type="text" id="product" name="product" placeholder="e.g., 'Premium Subscription'" required>
+            <div class="input-group">
+                <label>Payment Method</label>
+                <div class="payment-options">
+                    <input type="radio" id="gpay" name="paymentMethod" value="GPay" required>
+                    <label for="gpay">GPay</label>
 
-            <label>Payment Method</label>
-            <div class="payment-options">
-                <input type="radio" id="gpay" name="paymentMethod" value="GPay" required>
-                <label for="gpay">GPay</label>
+                    <input type="radio" id="paytm" name="paymentMethod" value="Paytm">
+                    <label for="paytm">Paytm</label>
 
-                <input type="radio" id="paytm" name="paymentMethod" value="Paytm">
-                <label for="paytm">Paytm</label>
+                    <input type="radio" id="phonepe" name="paymentMethod" value="PhonePe">
+                    <label for="phonepe">PhonePe</label>
 
-                <input type="radio" id="phonepe" name="paymentMethod" value="PhonePe">
-                <label for="phonepe">PhonePe</label>
-
-                <input type="radio" id="fampay" name="paymentMethod" value="FamPay">
-                <label for="fampay">FamPay</label>
+                    <input type="radio" id="fampay" name="paymentMethod" value="FamPay">
+                    <label for="fampay">FamPay</label>
+                </div>
             </div>
             
             <input type="text" id="honeypot" name="honeypot" class="honeypot-field">
