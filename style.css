@@ -69,8 +69,42 @@ button:hover {
     background-color: #166fe5;
 }
 
+button:disabled {
+    background-color: #9dbef2;
+    cursor: not-allowed;
+}
+
 #statusMessage {
     text-align: center;
     margin-top: 15px;
     font-weight: bold;
+}
+
+/* --- NEW STYLES --- */
+
+/* Hides the honeypot field from users */
+.honeypot-field {
+    display: none;
+}
+
+.antispam-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.antispam-check label {
+    margin-bottom: 0;
+    margin-left: 8px;
+}
+
+.message-box {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+    background-color: #fff3cd;
+    color: #664d03;
+    border: 1px solid #ffecb5;
 }
