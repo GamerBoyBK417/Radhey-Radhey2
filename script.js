@@ -1,38 +1,76 @@
-// Get the form element
+// Get form elements
 const form = document.getElementById('ticketForm');
 const statusMessage = document.getElementById('statusMessage');
-
-// Record the time the page loaded
-const loadTime = new Date().getTime();
+const cooldownMessage = document.getElementById('cooldownMessage');
+const submitBtn = document.getElementById('submitBtn');
 
 // !! IMPORTANT !!
 // PASTE YOUR DISCORD WEBHOOK URL HERE
-const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1406714029048856656/rcCH-OCTQ8YA5sljAtwWo4cIfvfs8nky_gxK8Jow65VvQueCBZXtB2xoDRHX0NLvuFbK';
+const DISCORD_WEBHOOK_URL = 'YOUR_WEBHOOK_URL_HERE';
+
+// Cooldown period: 2 days in milliseconds
+const COOLDOWN_PERIOD_MS = 2 * 24 * 60 * 60 * 1000; // 48 hours
+
+/**
+ * Disables the form inputs and button.
+ */
+function disableForm() {
+    submitBtn.disabled = true;
+    const inputs = form.getElementsByTagName('input');
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].disabled = true;
+    }
+}
+
+/**
+ * Checks if the user is on cooldown.
+ */
+function checkCooldown() {
+    const lastSubmissionTime = localStorage.getItem('lastTicketSubmission');
+    if (!lastSubmissionTime) {
+        return; // No previous submission, so no cooldown.
+    }
+
+    const currentTime = new Date().getTime();
+    const timeSinceLastSubmission = currentTime - parseInt(lastSubmissionTime, 10);
+
+    if (timeSinceLastSubmission < COOLDOWN_PERIOD_MS) {
+        const remainingTime = COOLDOWN_PERIOD_MS - timeSinceLastSubmission;
+        const remainingHours = Math.ceil(remainingTime / (1000 * 60 * 60));
+
+        cooldownMessage.textContent = `You can submit another ticket in approximately ${remainingHours} hours.`;
+        cooldownMessage.style.display = 'block';
+        disableForm();
+    }
+}
+
+// Run the cooldown check as soon as the page loads
+document.addEventListener('DOMContentLoaded', checkCooldown);
+
 
 form.addEventListener('submit', function(event) {
     // Prevent the default form submission behavior
     event.preventDefault();
 
-    // --- ANTI-BOT CHECK #1: HONEYPOT ---
-    const honeypot = document.getElementById('website').value;
+    // --- NEW: Anti-Spam Checks ---
+    const honeypot = document.getElementById('honeypot').value;
+    const isHuman = document.getElementById('isHuman').checked;
+
     if (honeypot) {
-        console.warn('Bot detected (honeypot filled).');
-        return; // Silently stop execution
+        console.log("Bot detected (honeypot filled).");
+        return; // Silently fail for bots
     }
 
-    // --- ANTI-BOT CHECK #2: TIMESTAMP ---
-    const submitTime = new Date().getTime();
-    // If form submitted in less than 3 seconds, it's likely a bot
-    if ((submitTime - loadTime) / 1000 < 3) {
-        console.warn('Bot detected (submission too fast).');
-        statusMessage.textContent = '❌ Error: Please fill out the form more slowly.';
+    if (!isHuman) {
+        statusMessage.textContent = 'Please check the "I am not a robot" box.';
         statusMessage.style.color = 'red';
         return;
     }
+    // --- End Anti-Spam Checks ---
 
-    const submitBtn = document.getElementById('submitBtn');
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting...';
+    statusMessage.textContent = ''; // Clear previous messages
 
     // Get form data
     const formData = new FormData(form);
@@ -45,10 +83,10 @@ form.addEventListener('submit', function(event) {
     // Create the payload to send to Discord
     const payload = {
         username: 'Ticket Bot',
-        avatar_url: 'https://i.imgur.com/4M34Hi2.png', // A simple ticket icon
+        avatar_url: 'https://i.imgur.com/4M34Hi2.png',
         embeds: [{
             title: 'New Support Ticket Received',
-            color: 5814783, // A nice blue color
+            color: 5814783,
             fields: [
                 { name: 'Full Name', value: fullName, inline: true },
                 { name: 'Email', value: email, inline: true },
@@ -73,17 +111,23 @@ form.addEventListener('submit', function(event) {
             statusMessage.textContent = '✅ Ticket submitted successfully!';
             statusMessage.style.color = 'green';
             form.reset(); // Clear the form
+
+            // --- NEW: Set cooldown after successful submission ---
+            const currentTime = new Date().getTime();
+            localStorage.setItem('lastTicketSubmission', currentTime.toString());
+            checkCooldown(); // Immediately apply the cooldown UI
+            // --- End Cooldown ---
         } else {
             statusMessage.textContent = '❌ Failed to submit ticket. Please try again.';
             statusMessage.style.color = 'red';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Ticket';
         }
     })
     .catch(error => {
         console.error('Error:', error);
         statusMessage.textContent = '❌ An error occurred. Please check the console.';
         statusMessage.style.color = 'red';
-    })
-    .finally(() => {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit Ticket';
     });
