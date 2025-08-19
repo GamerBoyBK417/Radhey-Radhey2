@@ -1,45 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ticket System</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ticket System</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Ticket System</h1>
-        <form id="ticketForm">
-            <label for="fullName">Full Name:</label>
-            <input type="text" id="fullName" required>
+<div class="container">
+<h1>Ticket System</h1>
+<form id="ticketForm">
+    <label for="fullName">Full Name:</label>
+    <input type="text" id="fullName" required>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" required>
+    <label for="email">Email:</label>
+    <input type="email" id="email" required>
 
-            <label for="mobile">Mobile Number:</label>
-            <input type="tel" id="mobile" required>
+    <label for="mobile">Mobile Number:</label>
+    <input type="tel" id="mobile" required>
 
-            <label for="product">Product:</label>
-            <select id="product" required>
-                <option value="Game">Game</option>
-                <option value="VPN">VPN</option>
-                <option value="Bot Hosting">Bot Hosting</option>
-            </select>
+    <label for="product">Product:</label>
+    <select id="product" required>
+        <option value="Game">Game</option>
+        <option value="VPN">VPN</option>
+        <option value="Bot Hosting">Bot Hosting</option>
+    </select>
 
-            <label for="payment">Payment Method:</label>
-            <select id="payment" required>
-                <option value="UPI">UPI</option>
-                <option value="GPay">GPay</option>
-                <option value="Paytm">Paytm</option>
-                <option value="PhonePay">PhonePay</option>
-                <option value="Fampay">Fampay</option>
-            </select>
+    <label for="payment">Payment Method:</label>
+    <select id="payment" required>
+        <option value="UPI">UPI</option>
+        <option value="GPay">GPay</option>
+        <option value="Paytm">Paytm</option>
+        <option value="PhonePay">PhonePay</option>
+        <option value="Fampay">Fampay</option>
+    </select>
 
-            <button type="submit">Submit Ticket</button>
-        </form>
-        <p id="status"></p>
-    </div>
+    <label for="captcha">What is 3 + 4?</label>
+    <input type="text" id="captcha" required>
 
-    <script src="script.js"></script>
+    <button type="submit">Submit Ticket</button>
+</form>
+<p id="status"></p>
+</div>
+
+<script src="env.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
