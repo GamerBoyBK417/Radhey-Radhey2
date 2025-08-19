@@ -1,13 +1,33 @@
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Poppins', sans-serif; background-color: #121826; color: #E0E0E0; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-.form-container { background-color: #1A2233; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); width: 100%; max-width: 500px; }
-h1 { font-weight: 600; margin-bottom: 10px; color: #FFFFFF; }
-p { margin-bottom: 30px; font-weight: 300; color: #A0AEC0; }
-.form-group { margin-bottom: 20px; }
-label { display: block; margin-bottom: 8px; font-weight: 400; color: #C0CADB; }
-input { width: 100%; padding: 12px; background-color: #25314C; border: 1px solid #3A4763; border-radius: 8px; color: #E0E0E0; font-family: 'Poppins', sans-serif; font-size: 16px; transition: all 0.3s; }
-input:focus { outline: none; border-color: #D4AF37; box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2); }
-button { width: 100%; padding: 15px; background-color: #D4AF37; color: #121826; border: none; border-radius: 8px; font-size: 18px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-button:hover { background-color: #E0C56A; transform: translateY(-2px); }
-button:disabled { background-color: #555; cursor: not-allowed; }
-.confirmation-message h1 { text-align: center; } .confirmation-message p { text-align: center; font-size: 18px; }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 400px;
+}
+
+h1 { text-align: center; margin-bottom: 20px; }
+
+form label { display: block; margin: 10px 0 5px; }
+
+form input, form select, form button {
+    width: 100%; padding: 8px; margin-bottom: 10px;
+}
+
+button {
+    background-color: #4CAF50; color: white; border: none; cursor: pointer;
+}
+
+button:hover { background-color: #45a049; }
+
+#status { text-align: center; margin-top: 10px; font-weight: bold; }
