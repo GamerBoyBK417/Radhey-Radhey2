@@ -3,76 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoRamTix - Support Ticket System</title>
+    <title>Secure Order Form</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="ticket-container">
-        <h1>CoRamTix</h1>
-        <p class="subtitle">Submit a Support Ticket</p>
-        
-        <div id="cooldownMessage" class="message-box" style="display: none;"></div>
-
-        <form id="ticketForm">
-            <div class="input-group">
-                <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" name="fullName" required>
-            </div>
-
-            <div class="input-group">
-                <label for="email">Valid Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            
-            <div class="input-group">
-                <label for="mobile">Valid Phone Number</label>
-                <input type="tel" id="mobile" name="mobile" required>
-            </div>
-
-            <div class="input-group">
-                <label for="product">Product Name</label>
-                <select id="product" name="product" required>
-                    <option value="" disabled selected>-- Select a Product --</option>
-                    <option value="Game">Game</option>
-                    <option value="VPS">VPS</option>
-                    <option value="Bot Hosting">Bot Hosting</option>
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label>Payment Method</label>
-                <div class="payment-options">
-                    <input type="radio" id="upi" name="paymentMethod" value="UPI" required>
-                    <label for="upi">UPI</label>
-
-                    <input type="radio" id="gpay" name="paymentMethod" value="GPay">
-                    <label for="gpay">GPay</label>
-
-                    <input type="radio" id="paytm" name="paymentMethod" value="Paytm">
-                    <label for="paytm">Paytm</label>
-
-                    <input type="radio" id="phonepe" name="paymentMethod" value="PhonePe">
-                    <label for="phonepe">PhonePe</label>
-                </div>
-            </div>
-            
-            <!-- Honeypot (anti-bot field, hidden) -->
-            <input type="text" id="honeypot" name="honeypot" class="honeypot-field">
-
-            <!-- Human verification -->
-            <div class="antispam-check">
-                <input type="checkbox" id="isHuman" name="isHuman" required>
-                <label for="isHuman">I am not a robot</label>
-            </div>
-
-            <button type="submit" id="submitBtn">Submit Ticket</button>
+    <div class="form-container" id="form-container">
+        <h1>Confirm Your Order</h1>
+        <p>Your details are submitted securely.</p>
+        <form id="payment-form">
+            <div class="form-group"><label for="fullName">Full Name</label><input type="text" id="fullName" required></div>
+            <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" required></div>
+            <div class="form-group"><label for="mobile">Mobile Number</label><input type="tel" id="mobile" required></div>
+            <div class="form-group"><label for="product">Product Name</label><input type="text" id="product" required></div>
+            <button type="submit" id="submit-btn">Submit Securely</button>
         </form>
-        <p id="statusMessage"></p>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
