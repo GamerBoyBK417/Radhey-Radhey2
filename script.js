@@ -1,5 +1,14 @@
+const proxyURL = ENV.PROXY_URL;
+let lastSubmitTime = 0;
+
 document.getElementById("ticketForm").addEventListener("submit", async function(e){
     e.preventDefault();
+
+    const captchaAnswer = document.getElementById("captcha").value;
+    if(captchaAnswer != "7"){ // simple math captcha
+        document.getElementById("status").innerText = "Captcha incorrect!";
+        return;
+    }
 
     const fullName = document.getElementById("fullName").value;
     const email = document.getElementById("email").value;
@@ -7,34 +16,22 @@ document.getElementById("ticketForm").addEventListener("submit", async function(
     const product = document.getElementById("product").value;
     const payment = document.getElementById("payment").value;
 
-    const webhookURL = process.env.DISCORD_WEBHOOK_URL || ""; // Using .env in GitHub Pages requires a bundler; for now replace manually
-
-    if(!webhookURL) {
-        alert("Webhook URL not set!");
-        return;
-    }
-
-    const payload = {
-        content: `**New Ticket Submitted**\n**Name:** ${fullName}\n**Email:** ${email}\n**Mobile:** ${mobile}\n**Product:** ${product}\n**Payment:** ${payment}`
-    };
-
     try {
-        const res = await fetch(webhookURL, {
+        const res = await fetch(proxyURL, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ fullName, email, mobile, product, payment })
         });
 
-        if(res.ok){
+        const data = await res.json();
+        if(data.success){
             document.getElementById("status").innerText = "Ticket submitted successfully!";
             document.getElementById("ticketForm").reset();
         } else {
-            document.getElementById("status").innerText = "Failed to send ticket.";
+            document.getElementById("status").innerText = data.error || "Failed to send ticket!";
         }
     } catch(err){
-        document.getElementById("status").innerText = "Error sending ticket.";
+        document.getElementById("status").innerText = "Error sending ticket!";
         console.error(err);
     }
 });
