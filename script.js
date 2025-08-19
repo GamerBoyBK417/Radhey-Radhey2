@@ -1,5 +1,4 @@
 const proxyURL = ENV.PROXY_URL;
-let lastSubmitTime = 0;
 
 document.getElementById("ticketForm").addEventListener("submit", async function(e){
     e.preventDefault();
