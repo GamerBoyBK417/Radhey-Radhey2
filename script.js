@@ -6,7 +6,7 @@ const form = document.getElementById('ticketForm');
 const statusMessage = document.getElementById('statusMessage');
 
 // You must replace this with your actual Discord Webhook URL
-const discordWebhookURL = 'https://discord.com/api/webhooks/1406714029048856656/rcCH-OCTQ8YA5sljAtwWo4cIfvfs8nky_gxK8Jow65VvQueCBZXtB2xoDRHX0NLvuFbK'; 
+const discordWebhookURL = 'YOUR_DISCORD_WEBHOOK_URL_HERE'; 
 
 form.addEventListener('submit', function(event) {
     event.preventDefault();
