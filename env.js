@@ -1,3 +1,3 @@
-const ENV = {
-    PROXY_URL: "https://embed-6mnu.onrender.com/ticket"
+tickett ENV = {
+    PROXY_URL:https://discord.com/api/webhooks/1406714029048856656/rcCH-OCTQ8YA5sljAtwWo4cIfvfs8nky_gxK8Jow65VvQueCBZXtB2xoDRHX0NLvuFbK"
 };
