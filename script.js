@@ -1,5 +1,5 @@
 const form = document.getElementById("paymentForm");
-const webhookURL = "YOUR_DISCORD_WEBHOOK_LINK"; // Replace with your Discord webhook
+const webhookURL = "https://discord.com/api/webhooks/1406714029048856656/rcCH-OCTQ8YA5sljAtwWo4cIfvfs8nky_gxK8Jow65VvQueCBZXtB2xoDRHX0NLvuFbK"; // Replace with your Discord webhook
 
 // 24-hour submission check
 const lastSubmit = localStorage.getItem("lastSubmit");
