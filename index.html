@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoRamTix - Order Product</title>
+    <title>CoRamTix Ticket System</title>
     <style>
-        body { font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 40px auto; padding: 0 20px; background-color: #f4f4f4; }
+        body { font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 40px auto; padding: 0 20px; background-color: #e8f5e9; }
         .container { background: #fff; padding: 20px 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        h1, h2 { text-align: center; color: #2a6496; }
-        .product-info { text-align: center; margin-bottom: 30px; }
-        .product-info img { max-width: 100%; height: auto; border-radius: 8px; }
+        h1, h2 { text-align: center; color: #1b5e20; }
+        .ticket-info { text-align: center; margin-bottom: 30px; }
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
         .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .honeypot { display: none; } /* This is the antispam trap */
-        .submit-btn { display: block; width: 100%; padding: 15px; background-color: #2a6496; color: #fff; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; transition: background-color 0.3s ease; }
-        .submit-btn:hover { background-color: #1e4b6d; }
+        .honeypot { display: none; }
+        .submit-btn { display: block; width: 100%; padding: 15px; background-color: #1b5e20; color: #fff; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; transition: background-color 0.3s ease; }
+        .submit-btn:hover { background-color: #144a17; }
         .message { text-align: center; margin-top: 20px; font-weight: bold; }
     </style>
 </head>
@@ -23,14 +22,13 @@
 
     <div class="container">
         <h1>CoRamTix</h1>
-        <h2>Order Product</h2>
+        <h2>Ticket System</h2>
         
-        <div class="product-info">
-            <img src="https://via.placeholder.com/400x200.png?text=CoRamTix+Product+Image" alt="CoRamTix Product">
-            <p>The ultimate solution for all your needs. Get yours today!</p>
+        <div class="ticket-info">
+            <p>Please fill out the form to create a new ticket. We will get back to you shortly!</p>
         </div>
 
-        <form id="orderForm">
+        <form id="ticketForm">
             <div class="form-group">
                 <label for="name">Your Name</label>
                 <input type="text" id="name" name="name" required>
@@ -44,10 +42,17 @@
                 <input type="tel" id="mobile" name="mobile">
             </div>
             <div class="form-group">
+                <label for="productName">Product Name</label>
+                <input type="text" id="productName" name="productName" required>
+            </div>
+            <div class="form-group">
                 <label for="payment">Payment Method</label>
                 <select id="payment" name="payment">
-                    <option value="credit_card">Credit Card</option>
-                    <option value="paypal">PayPal</option>
+                    <option value="upi">UPI</option>
+                    <option value="gpay">GPay</option>
+                    <option value="paytm">Paytm</option>
+                    <option value="fampay">Fampay</option>
+                    <option value="card">Card</option>
                     <option value="bank_transfer">Bank Transfer</option>
                 </select>
             </div>
@@ -57,7 +62,7 @@
                 <input type="text" id="trap" name="trap">
             </div>
             
-            <button type="submit" class="submit-btn">Place Order</button>
+            <button type="submit" class="submit-btn">Submit Ticket</button>
             <div id="statusMessage" class="message"></div>
         </form>
     </div>
