@@ -3,47 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ticket System</title>
-<link rel="stylesheet" href="style.css">
+<title>Payment Form - One Time Only</title>
+<style>
+    body { font-family: Arial; background: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    form { background: #fff; padding: 20px; border-radius: 10px; width: 300px; box-shadow: 0 0 10px rgba(0,0,0,0.1);}
+    input, select, button { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc;}
+    button { background: #4CAF50; color: #fff; border: none; cursor: pointer;}
+    button:hover { background: #45a049;}
+</style>
 </head>
 <body>
-<div class="container">
-<h1>Ticket System</h1>
-<form id="ticketForm">
-    <label for="fullName">Full Name:</label>
-    <input type="text" id="fullName" required>
-
-    <label for="email">Email:</label>
-    <input type="email" id="email" required>
-
-    <label for="mobile">Mobile Number:</label>
-    <input type="tel" id="mobile" required>
-
-    <label for="product">Product:</label>
-    <select id="product" required>
-        <option value="Game">Game</option>
-        <option value="VPN">VPN</option>
-        <option value="Bot Hosting">Bot Hosting</option>
-    </select>
-
-    <label for="payment">Payment Method:</label>
-    <select id="payment" required>
+<form id="paymentForm">
+    <h2>Payment Form</h2>
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="text" name="mobile" placeholder="Mobile Number" required>
+    <select name="payment" required>
+        <option value="">Payment Method</option>
         <option value="UPI">UPI</option>
-        <option value="GPay">GPay</option>
-        <option value="Paytm">Paytm</option>
-        <option value="PhonePay">PhonePay</option>
-        <option value="Fampay">Fampay</option>
+        <option value="Credit Card">Credit Card</option>
+        <option value="PayPal">PayPal</option>
     </select>
-
-    <label for="captcha">What is 3 + 4?</label>
-    <input type="text" id="captcha" required>
-
-    <button type="submit">Submit Ticket</button>
+    <input type="text" name="humanCheck" placeholder="What is 2 + 3?" required>
+    <button type="submit">Submit</button>
 </form>
-<p id="status"></p>
-</div>
 
-<script src="env.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
