@@ -1,36 +1,50 @@
-const proxyURL = ENV.PROXY_URL;
+const form = document.getElementById("paymentForm");
+const webhookURL = "YOUR_DISCORD_WEBHOOK_LINK";
 
-document.getElementById("ticketForm").addEventListener("submit", async function(e){
+// Check if the user has already submitted
+const lastSubmit = localStorage.getItem("lastSubmit");
+const now = new Date().getTime();
+
+if(lastSubmit && now - lastSubmit < 24 * 60 * 60 * 1000) {
+    form.innerHTML = "<h2>You can only submit once every 24 hours!</h2>";
+}
+
+form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const captchaAnswer = document.getElementById("captcha").value;
-    if(captchaAnswer != "7"){ // simple math captcha
-        document.getElementById("status").innerText = "Captcha incorrect!";
+    // Anti-bot check
+    const humanCheck = form.humanCheck.value.trim();
+    if(humanCheck !== "5") {
+        alert("Anti-bot check failed!");
         return;
     }
 
-    const fullName = document.getElementById("fullName").value;
-    const email = document.getElementById("email").value;
-    const mobile = document.getElementById("mobile").value;
-    const product = document.getElementById("product").value;
-    const payment = document.getElementById("payment").value;
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const mobile = form.mobile.value.trim();
+    const payment = form.payment.value;
+
+    const data = {
+        content: `**New Payment Submission**\n**Name:** ${name}\n**Email:** ${email}\n**Mobile:** ${mobile}\n**Payment Method:** ${payment}`
+    };
 
     try {
-        const res = await fetch(proxyURL, {
+        const response = await fetch(webhookURL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ fullName, email, mobile, product, payment })
+            body: JSON.stringify(data)
         });
 
-        const data = await res.json();
-        if(data.success){
-            document.getElementById("status").innerText = "Ticket submitted successfully!";
-            document.getElementById("ticketForm").reset();
+        if(response.ok) {
+            alert("Form submitted successfully!");
+            localStorage.setItem("lastSubmit", new Date().getTime());
+            form.reset();
+            form.innerHTML = "<h2>Thank you! You can only submit once every 24 hours.</h2>";
         } else {
-            document.getElementById("status").innerText = data.error || "Failed to send ticket!";
+            alert("Error sending form data.");
         }
-    } catch(err){
-        document.getElementById("status").innerText = "Error sending ticket!";
-        console.error(err);
+    } catch (error) {
+        alert("Error sending form data.");
+        console.error(error);
     }
 });
