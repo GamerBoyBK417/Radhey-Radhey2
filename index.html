@@ -1,33 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Payment Form</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoRamTix - Order Product</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 40px auto; padding: 0 20px; background-color: #f4f4f4; }
+        .container { background: #fff; padding: 20px 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1, h2 { text-align: center; color: #2a6496; }
+        .product-info { text-align: center; margin-bottom: 30px; }
+        .product-info img { max-width: 100%; height: auto; border-radius: 8px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .honeypot { display: none; } /* This is the antispam trap */
+        .submit-btn { display: block; width: 100%; padding: 15px; background-color: #2a6496; color: #fff; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; transition: background-color 0.3s ease; }
+        .submit-btn:hover { background-color: #1e4b6d; }
+        .message { text-align: center; margin-top: 20px; font-weight: bold; }
+    </style>
 </head>
 <body>
-<form id="paymentForm">
-    <h2>Payment Form</h2>
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="text" name="mobile" placeholder="Mobile Number" required>
-    <select name="payment" required>
-        <option value="">Payment Method</option>
-        <option value="UPI">UPI</option>
-        <option value="Credit Card">Credit Card</option>
-        <option value="PayPal">PayPal</option>
-    </select>
 
-    <!-- Anti-bot math question -->
-    <input type="text" name="humanCheck" placeholder="" required>
+    <div class="container">
+        <h1>CoRamTix</h1>
+        <h2>Order Product</h2>
+        
+        <div class="product-info">
+            <img src="https://via.placeholder.com/400x200.png?text=CoRamTix+Product+Image" alt="CoRamTix Product">
+            <p>The ultimate solution for all your needs. Get yours today!</p>
+        </div>
 
-    <!-- Hidden honeypot field -->
-    <input type="text" name="website" class="hidden" autocomplete="off">
+        <form id="orderForm">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="mobile">Mobile Number</label>
+                <input type="tel" id="mobile" name="mobile">
+            </div>
+            <div class="form-group">
+                <label for="payment">Payment Method</label>
+                <select id="payment" name="payment">
+                    <option value="credit_card">Credit Card</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="bank_transfer">Bank Transfer</option>
+                </select>
+            </div>
 
-    <button type="submit">Submit</button>
-</form>
+            <div class="form-group honeypot">
+                <label for="trap">Please leave this field empty</label>
+                <input type="text" id="trap" name="trap">
+            </div>
+            
+            <button type="submit" class="submit-btn">Place Order</button>
+            <div id="statusMessage" class="message"></div>
+        </form>
+    </div>
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
+
 </body>
 </html>
