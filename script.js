@@ -1,62 +1,71 @@
-const form = document.getElementById("paymentForm");
-const webhookURL = "https://discord.com/api/webhooks/1406714029048856656/rcCH-OCTQ8YA5sljAtwWo4cIfvfs8nky_gxK8Jow65VvQueCBZXtB2xoDRHX0NLvuFbK"; // Replace with your Discord webhook
+// ** IMPORTANT SECURITY NOTICE **
+// Placing the webhook URL directly in a client-side script is not secure for a production environment.
+// A malicious user could find this URL and spam your Discord channel.
+// This is for demonstration purposes only. For a real application, you should use a backend server
+// (e.g., a service like Netlify Functions, Vercel, or a custom Node.js server) to handle the webhook request.
 
-// 24-hour submission check
-const lastSubmit = localStorage.getItem("lastSubmit");
-const now = new Date().getTime();
+const form = document.getElementById('orderForm');
+const statusMessage = document.getElementById('statusMessage');
 
-if(lastSubmit && now - lastSubmit < 24 * 60 * 60 * 1000) {
-    form.innerHTML = "<h2>You can only submit once every 24 hours!</h2>";
-}
+// Step 1: Replace this with your actual Discord Webhook URL
+const discordWebhookURL = 'YOUR_DISCORD_WEBHOOK_URL_HERE'; 
 
-// Generate random anti-bot math question
-const a = Math.floor(Math.random() * 10) + 1;
-const b = Math.floor(Math.random() * 10) + 1;
-const correctAnswer = a + b;
-document.querySelector('input[name="humanCheck"]').placeholder = `What is ${a} + ${b}?`;
+form.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
 
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+    // Step 2: Antispam Antibot Check (Honeypot)
+    const honeypot = document.getElementById('trap').value;
+    if (honeypot.length > 0) {
+        console.log("Bot detected. Form submission ignored.");
+        statusMessage.textContent = 'Submission was not processed.';
+        statusMessage.style.color = 'red';
+        return; // Stop the function here
+    }
 
-    // Honeypot check
-    if(form.website.value.trim() !== "") {
-        alert("Bot detected!");
+    // Step 3: Basic Form Validation
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    if (!name || !email) {
+        statusMessage.textContent = 'Please fill out all required fields.';
+        statusMessage.style.color = 'red';
         return;
     }
 
-    // Anti-bot math check
-    if(form.humanCheck.value.trim() !== correctAnswer.toString()) {
-        alert("Anti-bot check failed!");
-        return;
-    }
+    statusMessage.textContent = 'Placing your order...';
+    statusMessage.style.color = '#2a6496';
 
-    const name = form.name.value.trim();
-    const email = form.email.value.trim();
-    const mobile = form.mobile.value.trim();
-    const payment = form.payment.value;
-
-    const data = {
-        content: `**New Payment Submission**\n**Name:** ${name}\n**Email:** ${email}\n**Mobile:** ${mobile}\n**Payment Method:** ${payment}`
+    // Step 4: Prepare the data to be sent to Discord
+    const formData = new FormData(form);
+    const orderDetails = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        mobile: formData.get('mobile'),
+        payment: formData.get('payment')
     };
 
-    try {
-        const response = await fetch(webhookURL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        });
+    const payload = {
+        content: `**New CoRamTix Order!**\n- **Name:** ${orderDetails.name}\n- **Email:** ${orderDetails.email}\n- **Mobile:** ${orderDetails.mobile || 'N/A'}\n- **Payment Method:** ${orderDetails.payment}`
+    };
 
-        if(response.ok) {
-            alert("Form submitted successfully!");
-            localStorage.setItem("lastSubmit", new Date().getTime());
-            form.reset();
-            form.querySelector('button[type="submit"]').disabled = true;
-            form.innerHTML = "<h2>Thank you! You can only submit once every 24 hours.</h2>";
-        } else {
-            alert("Error sending form data.");
+    // Step 5: Send the data to the Discord Webhook
+    fetch(discordWebhookURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
-    } catch (error) {
-        alert("Error sending form data.");
-        console.error(error);
-    }
+        statusMessage.textContent = 'Order successfully placed! You will receive a confirmation shortly.';
+        statusMessage.style.color = 'green';
+        form.reset(); // Clear the form
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+        statusMessage.textContent = 'An error occurred. Please try again later.';
+        statusMessage.style.color = 'red';
+    });
 });
