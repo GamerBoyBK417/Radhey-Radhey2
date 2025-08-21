@@ -8,7 +8,7 @@ const form = document.getElementById('orderForm');
 const statusMessage = document.getElementById('statusMessage');
 
 // Step 1: Replace this with your actual Discord Webhook URL
-const discordWebhookURL = 'YOUR_DISCORD_WEBHOOK_URL_HERE'; 
+const discordWebhookURL = 'https://discord.com/api/webhooks/1406714029048856656/rcCH-OCTQ8YA5sljAtwWo4cIfvfs8nky_gxK8Jow65VvQueCBZXtB2xoDRHX0NLvuFbK'; 
 
 form.addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the default form submission
